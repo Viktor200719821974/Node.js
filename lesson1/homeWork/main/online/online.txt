@@ -1,0 +1,7 @@
+
+Name: Ivan
+Age: 18
+City: Sumy ,
+Name: Pedro
+Age: 28
+City: Lviv 
