@@ -61,26 +61,23 @@ app.get('/users/:id', (req, res) => {
     res.render('userId', {user});
 });
 app.get('/users', (req, res) => {
-    console.log(req.query);
     const age = Number(req.query.age);
     const city = req.query.city;
-    const filterUsers = [];
-   if (age || city){
-       const filterAge = users.filter(c => c.age === age);
-       if (city){
-           const filterCity = filterAge.filter(c => c.city === city);
-           filterUsers.push(filterCity);
-       }else {
-           filterUsers.push(filterAge);
-       }
+   if (age && city){
+       const array = users.filter(c => c.age === age).filter(c => c.city === city);
+       res.render('filterUsers', {array});
    }
-    if (Object.keys(req.query).length === 0){
-        users.filter(c => c.age === req.query.age);
-        res.render('users', {users});
-    }else{
-        res.render('filterUsers', {filterUsers});
-    }
-    console.log(filterUsers);
+   if (city){
+       const array = users.filter(c => c.city === city);
+       res.render('filterUsers', {array});
+   }
+   if (age){
+       const array = users.filter(c => c.age === age);
+       res.render('filterUsers', {array});
+   }
+   else{
+       res.render('users', {users});
+   }
 });
 
 app.get('/error', (req, res) => {
