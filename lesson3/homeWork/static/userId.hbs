@@ -8,15 +8,14 @@
     <title>Document</title>
 </head>
 <body>
-<div style="background-color: lightcoral">
-    {{#each array}}
+<div style="background-color: #80f0cd; width: 300px; margin: 40px auto; border-radius: 10px; padding: 5px ">
+    {{#each user}}
         <div>FirstName: {{this.firstName}}</div>
         <div>LastName: {{this.lastName}}</div>
         <div>Age: {{this.age}}</div>
         <div>City: {{this.city}}</div>
         <div>Email: {{this.email}}</div>
         <div>Password: {{this.password}}</div>
-        <hr>
     {{/each}}
 </div>
 </body>

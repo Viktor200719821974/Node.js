@@ -68,11 +68,11 @@ app.get('/users', (req, res) => {
             const array = users.filter(c => c.age === age).filter(c => c.city === city);
             res.render('filterUsers', {array});
         }
-        if (city) {
+        if (city && !age) {
             const array = users.filter(c => c.city === city);
             res.render('filterUsers', {array});
         }
-        if (age) {
+        if (age && !city) {
             const array = users.filter(c => c.age === age);
             res.render('filterUsers', {array});
         }
