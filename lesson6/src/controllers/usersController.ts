@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
-import { getManager } from 'typeorm';
 import { IUser, User } from '../entity/user';
 import { usersService } from '../services/usersService';
 
 class UsersController {
-    public async getUsers(req:Request, res:Response): Promise<Response<IUser>> {
-        const users = await getManager().getRepository(User).find();
+    public async getUsers(req:Request, res:Response): Promise<Response<User[]>> {
+        const users = await usersService.getUsers([]);
         return res.json(users);
     }
 
@@ -23,16 +22,13 @@ class UsersController {
     public async changeUsers(req:Request, res:Response): Promise<Response<IUser>> {
         const { password, email } = req.body;
         const { id } = req.params;
-        const users = await getManager().getRepository(User).update({ id: Number(id) }, {
-            password,
-            email,
-        });
+        const users = await usersService.changeUser(password, email, id);
         return res.json(users);
     }
 
-    public async deleteUsers(req:Request, res:Response): Promise<Response<IUser>> {
+    public async deleteUsers(req:Request, res:Response): Promise<Response<void>> {
         const { id } = req.params;
-        const users = await getManager().getRepository(User).delete({ id: Number(id) });
+        const users = await usersService.deletedUser(id);
         return res.json(users);
     }
 }
