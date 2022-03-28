@@ -3,27 +3,23 @@ import express, { Request, Response } from 'express';
 import { createConnection, getManager } from 'typeorm';
 import { User } from './entity/user';
 
+// const apiRoutes = require('./routes/apiRouter');
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.get('/users', async (req: Request, res: Response) => {
+// Routes setup
+// app.use(apiRoutes);
+app.get('/users', async (req:Request, res:Response) => {
     const users = await getManager().getRepository(User).find();
     res.json(users);
 });
-app.get('/user', async (req: Request, res: Response) => {
-    const users = await getManager().getRepository(User).findOne({
-        where: {
-            firstName: 'Olena',
-        },
-    });
-    res.json(users);
-});
-app.post('/users', async (req: Request, res: Response) => {
+app.post('/users', async (req:Request, res:Response) => {
     const createdUser = await getManager().getRepository(User).save(req.body);
     res.json(createdUser);
 });
-app.patch('/users/:id', async (req: Request, res: Response) => {
+app.patch('/users', async (req:Request, res:Response) => {
     const { password, email } = req.body;
     const { id } = req.params;
     const users = await getManager().getRepository(User).update({ id: Number(id) }, {
@@ -32,11 +28,24 @@ app.patch('/users/:id', async (req: Request, res: Response) => {
     });
     res.json(users);
 });
-app.delete('/users/:id', async (req: Request, res: Response) => {
+app.delete('/users', async (req:Request, res:Response) => {
     const { id } = req.params;
     const users = await getManager().getRepository(User).delete({ id: Number(id) });
     res.json(users);
 });
+app.get('/user', async (req: Request, res: Response) => {
+    const user = await getManager().getRepository(User).findOne({
+        where: {
+            firstName: 'Olena',
+        },
+    });
+    res.json(user);
+});
+// app.delete('/users/:id', async (req: Request, res: Response) => {
+//     const { id } = req.params;
+//     const users = await getManager().getRepository(User).softDelete({ id: Number(id) });
+//     res.json(users);
+// });
 // const users = await getManager().getRepository(User).find({ relations: ['posts'] });
 // res.json(users);
 // const users = await getManager().getRepository(User)
