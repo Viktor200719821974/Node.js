@@ -1,12 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.usersController = void 0;
-const typeorm_1 = require("typeorm");
-const user_1 = require("../entity/user");
 const usersService_1 = require("../services/usersService");
 class UsersController {
     async getUsers(req, res) {
-        const users = await (0, typeorm_1.getManager)().getRepository(user_1.User).find();
+        const users = await usersService_1.usersService.getUsers([]);
         return res.json(users);
     }
     async getUserByEmail(req, res) {
@@ -21,15 +19,12 @@ class UsersController {
     async changeUsers(req, res) {
         const { password, email } = req.body;
         const { id } = req.params;
-        const users = await (0, typeorm_1.getManager)().getRepository(user_1.User).update({ id: Number(id) }, {
-            password,
-            email,
-        });
+        const users = await usersService_1.usersService.changeUser(password, email, id);
         return res.json(users);
     }
     async deleteUsers(req, res) {
         const { id } = req.params;
-        const users = await (0, typeorm_1.getManager)().getRepository(user_1.User).delete({ id: Number(id) });
+        const users = await usersService_1.usersService.deletedUser(id);
         return res.json(users);
     }
 }

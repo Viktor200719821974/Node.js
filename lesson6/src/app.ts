@@ -61,9 +61,10 @@ app.use(apiRouter);
 //     res.json(users);
 // });
 //
+const { PORT } = process.env;
 
-app.listen(5500, async () => {
-    console.log('Server has started!!!!!!!');
+app.listen(PORT, async () => {
+    console.log(`Server has started!!!!!!! on Port: ${PORT}`);
 
     try {
         const connection = await createConnection();

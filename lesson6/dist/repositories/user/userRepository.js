@@ -10,13 +10,25 @@ exports.userRepository = void 0;
 const typeorm_1 = require("typeorm");
 const user_1 = require("../../entity/user");
 let UserRepository = class UserRepository extends typeorm_1.Repository {
+    async getUsers(users) {
+        return (0, typeorm_1.getManager)().getRepository(user_1.User).find();
+    }
     async createUser(user) {
         return (0, typeorm_1.getManager)().getRepository(user_1.User).save(user);
+    }
+    async changeUser(email, password, id) {
+        return (0, typeorm_1.getManager)().getRepository(user_1.User).update({ id: Number(id) }, {
+            password,
+            email,
+        });
+    }
+    async deletedUser(id) {
+        return (0, typeorm_1.getManager)().getRepository(user_1.User).delete({ id: Number(id) });
     }
     async getUserByEmail(email) {
         return (0, typeorm_1.getManager)().getRepository(user_1.User)
             .createQueryBuilder('user')
-            .where(`user.email = ${email}`)
+            .where('user.email = :email', { email })
             .andWhere('user.deletedAt IS NULL')
             .getOne();
     }
