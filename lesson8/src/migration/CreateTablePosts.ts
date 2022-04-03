@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 export class CreateTablePosts1648221587569 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: 'Posts',
+            name: 'posts',
             columns: [
                 {
                     name: 'id',
@@ -49,7 +49,7 @@ export class CreateTablePosts1648221587569 implements MigrationInterface {
             foreignKeys: [
                 {
                     columnNames: ['userId'],
-                    referencedTableName: 'Users',
+                    referencedTableName: 'users',
                     referencedColumnNames: ['id'],
                     onDelete: 'CASCADE',
                     onUpdate: 'CASCADE',
@@ -59,6 +59,6 @@ export class CreateTablePosts1648221587569 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('Posts', true);
+        await queryRunner.dropTable('posts', true);
     }
 }

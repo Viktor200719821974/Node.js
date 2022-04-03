@@ -1,9 +1,10 @@
 import { usersService } from './usersService';
 import { IUser } from '../entity/user';
 import { tokenService } from './tokenService';
+import { ITokenData } from '../interfaces';
 
 class AuthService {
-    public async registration(body: IUser) {
+    public async registration(body: IUser): Promise<ITokenData> {
         const { email } = body;
         const userFromDb = await usersService.getUserByEmail(email);
         if (userFromDb) {
@@ -13,10 +14,10 @@ class AuthService {
         return this._getTokenData(createdUser);
     }
 
-    private async _getTokenData(userData: IUser) {
+    private async _getTokenData(userData: IUser): Promise<ITokenData> {
         const { id, email } = userData;
         const tokenPair = await tokenService.generateTokenPair({ userId: id, userEmail: email });
-        await tokenService.saveToken(id, tokenPair.refreshToken);
+        await tokenService.saveToken(id, tokenPair.refreshToken, tokenPair.accessToken);
 
         return {
             ...tokenPair,

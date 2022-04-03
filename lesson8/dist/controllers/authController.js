@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.authController = void 0;
 const cookie_1 = require("../constants/cookie");
 const services_1 = require("../services");
+const tokenRepository_1 = require("../repositories/token/tokenRepository");
 class AuthController {
     async registration(req, res) {
         const data = await services_1.authService.registration(req.body);
@@ -11,9 +12,25 @@ class AuthController {
     }
     async logout(req, res) {
         const { id } = req.user;
-        res.clearCookie(cookie_1.COOKIE.nameRefreshToken);
         await services_1.tokenService.deleteUserTokenPair(id);
         return res.json('Ok');
+    }
+    async login(req, res) {
+        try {
+            const { id, email, password: hashPassword } = req.user;
+            const { password } = req.body;
+            await services_1.usersService.compareUserPasswords(password, hashPassword);
+            const { refreshToken, accessToken } = services_1.tokenService.generateTokenPair({ userId: id, userEmail: email });
+            await tokenRepository_1.tokenRepository.createToken({ refreshToken, accessToken, userId: id });
+            res.json({
+                refreshToken,
+                accessToken,
+                user: req.user,
+            });
+        }
+        catch (e) {
+            res.status(400).json(e);
+        }
     }
 }
 exports.authController = new AuthController();

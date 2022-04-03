@@ -24,6 +24,7 @@
                 "ts": "never"
             }
         ],
+//        "max-len": [ "warning", {"code": 140}],
         "class-methods-use-this": "off",
         "no-unused-vars": ["error", {
             "args": "none"

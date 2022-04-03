@@ -5,7 +5,7 @@ const typeorm_1 = require("typeorm");
 class CreateTablePosts1648221587569 {
     async up(queryRunner) {
         await queryRunner.createTable(new typeorm_1.Table({
-            name: 'Posts',
+            name: 'posts',
             columns: [
                 {
                     name: 'id',
@@ -46,7 +46,7 @@ class CreateTablePosts1648221587569 {
             foreignKeys: [
                 {
                     columnNames: ['userId'],
-                    referencedTableName: 'Users',
+                    referencedTableName: 'users',
                     referencedColumnNames: ['id'],
                     onDelete: 'CASCADE',
                     onUpdate: 'CASCADE',
@@ -55,7 +55,7 @@ class CreateTablePosts1648221587569 {
         }), true);
     }
     async down(queryRunner) {
-        await queryRunner.dropTable('Posts', true);
+        await queryRunner.dropTable('posts', true);
     }
 }
 exports.CreateTablePosts1648221587569 = CreateTablePosts1648221587569;

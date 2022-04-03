@@ -4,7 +4,7 @@ exports.CreateTableUsers1648221539127 = void 0;
 class CreateTableUsers1648221539127 {
     async up(queryRunner) {
         await queryRunner.query(`
-            CREATE TABLE IF NOT EXISTS Users (
+            CREATE TABLE IF NOT EXISTS users (
                 id INT PRIMARY KEY AUTO_INCREMENT,
                 firstName VARCHAR(250) NOT NULL,
                 lastName VARCHAR(250) NOT NULL,
@@ -19,7 +19,7 @@ class CreateTableUsers1648221539127 {
     }
     async down(queryRunner) {
         await queryRunner.query(`
-            DROP TABLE IF EXISTS Users
+            DROP TABLE IF EXISTS users
         `);
     }
 }

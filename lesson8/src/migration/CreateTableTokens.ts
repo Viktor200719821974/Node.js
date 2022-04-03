@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm';
 export class CreateTableTokens1648564188586 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-            CREATE TABLE IF NOT EXISTS Tokens (
+            CREATE TABLE IF NOT EXISTS tokens (
                 id INT PRIMARY KEY AUTO_INCREMENT,
                 refreshToken VARCHAR(250) NOT NULL,
                 userId INT NOT NULL,
@@ -14,7 +14,7 @@ export class CreateTableTokens1648564188586 implements MigrationInterface {
 
     public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-        DROP TABLE IF EXISTS Tokens
+        DROP TABLE IF EXISTS tokens
         `);
     }
 }

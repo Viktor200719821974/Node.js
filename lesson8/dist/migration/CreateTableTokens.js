@@ -4,7 +4,7 @@ exports.CreateTableTokens1648564188586 = void 0;
 class CreateTableTokens1648564188586 {
     async up(queryRunner) {
         await queryRunner.query(`
-            CREATE TABLE IF NOT EXISTS Tokens (
+            CREATE TABLE IF NOT EXISTS tokens (
                 id INT PRIMARY KEY AUTO_INCREMENT,
                 refreshToken VARCHAR(250) NOT NULL,
                 userId INT NOT NULL,
@@ -14,7 +14,7 @@ class CreateTableTokens1648564188586 {
     }
     async down(queryRunner) {
         await queryRunner.query(`
-        DROP TABLE IF EXISTS Tokens
+        DROP TABLE IF EXISTS tokens
         `);
     }
 }

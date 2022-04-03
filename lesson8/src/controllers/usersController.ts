@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import { IUser, User } from '../entity/user';
-import { usersService } from '../services/usersService';
+import { IUser } from '../entity/user';
+import { usersService } from '../services';
 
 class UsersController {
-    public async getUsers(req:Request, res:Response): Promise<Response<User[]>> {
+    public async getUsers(req:Request, res:Response): Promise<Response<IUser[]>> {
         const users = await usersService.getUsers([]);
         return res.json(users);
     }
