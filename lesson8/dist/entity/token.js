@@ -38,7 +38,7 @@ __decorate([
     __metadata("design:type", Number)
 ], Token.prototype, "userId", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => user_1.User),
+    (0, typeorm_1.ManyToOne)(() => user_1.User),
     (0, typeorm_1.JoinColumn)({ name: 'userId' }),
     __metadata("design:type", user_1.User)
 ], Token.prototype, "user", void 0);
